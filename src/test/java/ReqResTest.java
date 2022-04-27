@@ -21,8 +21,8 @@ public class ReqResTest {
 
     @BeforeEach
     public void setup(){
-        //RestAssured.baseURI = "https://reqres.in";
-        //RestAssured.basePath = "/api";
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
         RestAssured.filters( new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.requestSpecification=new RequestSpecBuilder().setContentType(ContentType.JSON).build();
     }
@@ -72,7 +72,7 @@ public class ReqResTest {
                 "    \"name\": \"morpheus\",\n" +
                 "    \"job\": \"zion resident\"\n" +
                 "}")
-                .patch("https://reqres.in/api/users/2")
+                .patch("users/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
@@ -90,7 +90,7 @@ public class ReqResTest {
                         "    \"name\": \"morpheus\",\n" +
                         "    \"job\": \"zion resident\"\n" +
                         "}")
-                .put("https://reqres.in/api/users/2")
+                .put("users/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
@@ -101,7 +101,7 @@ public class ReqResTest {
     @Test
     public void getAllUsersTest(){
         Response response = given()
-        .get("https://reqres.in/api/users?page=2");
+        .get("users?page=2");
 
         Headers headers = response.getHeaders();
         int statusCode = response.getStatusCode();
@@ -116,6 +116,5 @@ public class ReqResTest {
         System.out.println(headers.get("Content-Type"));
         System.out.println(headers.get("Transfer-Encoding"));
     }
-
 
 }
